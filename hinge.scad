@@ -23,11 +23,12 @@
 
 module bottomWedge(r, d, rodH, tolerance, other) {
   wedgeH = (r + tolerance) * sin(45);
-  wedgeBottom = max(r + tolerance, d);
+  wedgeBottom = min(max(r + tolerance, d), 2*wedgeH + r + tolerance);
   wedgeFlip = other ? 1 : -1;
   linear_extrude(height = rodH)
   polygon(points=[
-    [wedgeH,wedgeFlip*-r],
+    [0,wedgeFlip*-r],
+    [0,0],
     [wedgeH,wedgeFlip*wedgeH],
     [wedgeBottom,wedgeFlip*(wedgeH - (wedgeBottom - wedgeH))],
     [wedgeBottom,wedgeFlip*-r]
